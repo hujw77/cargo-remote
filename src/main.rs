@@ -1,3 +1,4 @@
+use simple_logger::SimpleLogger;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::path::PathBuf;
@@ -100,7 +101,12 @@ enum Opts {
 }
 
 fn main() {
-    simple_logger::init().unwrap();
+    SimpleLogger::new()
+        .with_level(log::LevelFilter::Info)
+        .with_utc_timestamps()
+        .env()
+        .init()
+        .unwrap();
 
     let Opts::Remote {
         remote_opts,
