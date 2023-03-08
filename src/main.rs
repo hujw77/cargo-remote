@@ -9,7 +9,7 @@ use log::{error, info};
 
 mod config;
 
-const PROGRESS_FLAG: &str = "--progress";
+const PROGRESS_FLAG: &str = "--info=progress2";
 
 #[derive(StructOpt, Debug)]
 pub struct RemoteOpts {
