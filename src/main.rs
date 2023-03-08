@@ -140,7 +140,7 @@ fn main() {
 
     rsync_to
         .arg("--rsync-path")
-        .arg("mkdir -p remote-builds && rsync")
+        .arg("mkdir -p rust && rsync")
         .arg(format!("{}/", project_dir.to_string_lossy()))
         .arg(format!("{}:{}", build_server, build_path))
         .stdout(Stdio::inherit())
