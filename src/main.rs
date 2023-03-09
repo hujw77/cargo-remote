@@ -38,9 +38,9 @@ pub struct RemoteOpts {
 }
 
 #[derive(StructOpt, Debug)]
-#[structopt(name = "cargo-remote", bin_name = "cargo")]
+#[structopt(name = "cargo-nix", bin_name = "cargo")]
 enum Opts {
-    #[structopt(name = "remote")]
+    #[structopt(name = "nix")]
     Remote {
         #[structopt(flatten)]
         remote_opts: RemoteOpts,

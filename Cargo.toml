@@ -1,5 +1,5 @@
 [package]
-name = "cargo-remote"
+name = "cargo-nix"
 description = "Cargo subcommand to build rust projects remotely"
 keywords = ["remote", "build"]
 categories = ["command-line-utilities", "development-tools::build-utils", "development-tools::cargo-plugins"]
