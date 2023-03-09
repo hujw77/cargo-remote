@@ -46,14 +46,6 @@ enum Opts {
         remote_opts: RemoteOpts,
 
         #[structopt(
-            short = "b",
-            long = "build-env",
-            help = "Set remote environment variables. RUST_BACKTRACE, CC, LIB, etc. ",
-            default_value = "RUST_BACKTRACE=1"
-        )]
-        build_env: String,
-
-        #[structopt(
             short = "c",
             long = "copy-back",
             help = "Transfer the target folder or specific file from that folder back to the local machine"
@@ -80,15 +72,6 @@ enum Opts {
             help = "Transfer hidden files and directories to the build server"
         )]
         hidden: bool,
-
-        #[structopt(help = "cargo command that will be executed remotely")]
-        command: String,
-
-        #[structopt(
-            help = "cargo options and flags that will be applied remotely",
-            name = "remote options"
-        )]
-        options: Vec<String>,
     },
 }
 
@@ -102,13 +85,10 @@ fn main() {
 
     let Opts::Remote {
         remote_opts,
-        build_env,
         copy_back,
         no_copy_lock,
         manifest_path,
         hidden,
-        command,
-        options,
     } = Opts::from_args();
 
     let mut metadata_cmd = cargo_metadata::MetadataCommand::new();
@@ -173,14 +153,7 @@ fn main() {
         });
     info!("Environment profile: {:?}", remote.env);
     info!("Build path: {:?}", build_path);
-    let build_command = format!(
-        "source {}; cd {}; nix-shell; {} cargo {} {}",
-        remote.env,
-        build_path,
-        build_env,
-        command,
-        options.join("")
-    );
+    let build_command = format!("source {}; cd {}; nix-shell;", remote.env, build_path,);
 
     info!("Starting build process.");
     let output = Command::new("ssh")
